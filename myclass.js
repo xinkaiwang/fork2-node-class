@@ -35,9 +35,11 @@ function Class(funcs, parent) {
     }
   }
   // super
-  klass.prototype['super'] = function(act, val) {
-    if(typeof parent.prototype[act] === 'function') {
-      return parent.prototype[act].apply(this, val);
+  klass.prototype['super'] = function() {
+    var act = arguments[0];
+    var args = [].slice.call(arguments,1);
+    if(typeof klass.__super__.prototype[act] === 'function') {
+      return klass.__super__.prototype[act].apply(this, args);
     }
   };
   return klass;
