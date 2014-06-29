@@ -15,6 +15,15 @@ function Class(funcs, parent) {
   };
   klass._constructor = constructor;
 
+  if (parent) {
+    function ctor() {
+      // The surrogate constructor should satisfy "child.prototype.constructor == child.constructor"
+      this.constructor = klass;
+    }
+    ctor.prototype = parent.prototype;
+    klass.prototype = new ctor;
+  }
+
   // funcs
   for (name in funcs) {
     if (funcs.hasOwnProperty(name) && name !== 'initialize') {

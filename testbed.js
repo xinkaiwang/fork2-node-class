@@ -1,14 +1,22 @@
 var Class = require('./myclass.js');
 
-  var constructor = function(a,b) {
-    this.a = a;
-    this.b = b;
-  };
+  var A = Class({
+    a: function() {
+      return 1;
+    }
+  });
 
-  var Foo = Class({initialize: constructor});
+  var B = Class({
+    b: function() {
+      return 2;
+    }
+  },A);
 
-var obj = new Foo(1,2);
-var _a = obj.a;
-var _b = obj.b;
+  var b = new B();
+
+var _a = b.a;
+var _pa = A.prototype;
+var _pb = B.prototype;
+var _b = b.a();
 
 
