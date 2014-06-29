@@ -8,13 +8,13 @@ var A = Class({
 
 var B = Class({
   foo: function(a,b) {
-    return B.super("foo",a*10,b*100);
+    return this.super("foo",a*10,b*100);
   }
 },A);
 
 var C = Class({
   foo: function(a,b) {
-    return C.super("foo",a*10,b*100);
+    return this.super("foo",a*10,b*100);
   }
 },B);
 

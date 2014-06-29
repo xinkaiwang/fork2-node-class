@@ -34,12 +34,16 @@ function Class(funcs, parent) {
       klass.prototype[name] = funcs[name];
     }
   }
+  var current_class = [klass]; // Fixing Infinity Recursion (Part 2)
   // super
   klass.prototype['super'] = function() {
     var act = arguments[0];
     var args = [].slice.call(arguments,1);
-    if(typeof klass.__super__.prototype[act] === 'function') {
-      return klass.__super__.prototype[act].apply(this, args);
+    if(typeof current_class[current_class.length - 1].__super__.prototype[act] === 'function') {
+      current_class.push(current_class[current_class.length - 1].__super__);
+      var ret = current_class[current_class.length - 1].prototype[act].apply(this, args);
+      current_class.pop();
+      return ret;
     }
   };
   klass.super = klass.prototype.super; // Fixing Infinity Recursion (Part 1)
