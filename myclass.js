@@ -22,6 +22,10 @@ function Class(funcs, parent) {
     }
     ctor.prototype = parent.prototype;
     klass.prototype = new ctor;
+    klass.__super__ = parent;
+  }
+  else {
+    klass.__super__ = Object;
   }
 
   // funcs
