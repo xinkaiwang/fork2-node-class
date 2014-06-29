@@ -1,22 +1,23 @@
 var Class = require('./myclass.js');
 
-  var A = Class({
-    a: function() {
-      return 1;
-    }
-  });
+var A = Class({
+  foo: function(a,b) {
+    return [a,b];
+  }
+});
 
-  var B = Class({
-    b: function() {
-      return 2;
-    }
-  },A);
+var B = Class({
+  foo: function(a,b) {
+    return B.super("foo",a*10,b*100);
+  }
+},A);
 
-  var b = new B();
+var C = Class({
+  foo: function(a,b) {
+    return C.super("foo",a*10,b*100);
+  }
+},B);
 
-var _a = b.a;
-var _pa = A.prototype;
-var _pb = B.prototype;
-var _b = b.a();
-
-
+var c = new C()
+var result = c.foo(1,2); // should get [100,20000]
+console.log(result);

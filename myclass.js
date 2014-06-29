@@ -42,6 +42,7 @@ function Class(funcs, parent) {
       return klass.__super__.prototype[act].apply(this, args);
     }
   };
+  klass.super = klass.prototype.super; // Fixing Infinity Recursion (Part 1)
   return klass;
 }
 
